@@ -1,5 +1,5 @@
 [mysql]
-  dbname  = "discount-service"
+  dbname  = "discount_service"
   host    = "localhost"
   port    = 3306
   user    = "root"

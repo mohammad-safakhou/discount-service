@@ -1,4 +1,5 @@
-package rest
+package utils
+
 
 type StandardHttpResponse struct {
 	Message string      `json:"message"`

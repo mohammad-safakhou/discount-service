@@ -9,5 +9,7 @@ database:
     sslmode: disable
   mongo:
     uri: mongodb://localhost:27017
+  mysql:
+    uri: root:root@tcp(localhost:3306)/discount_service?parseTime=true
 server:
   port: 9000

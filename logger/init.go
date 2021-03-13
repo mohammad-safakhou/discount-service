@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"discount-service/models/rest"
+	"discount-service/utils"
 	"github.com/labstack/echo"
 	"go.uber.org/zap"
 	"net/http"
@@ -21,7 +21,7 @@ func (z LoggerUtils) CustomZapHttpErrorHandler(err error, c echo.Context) {
 	var code = http.StatusInternalServerError
 	var message interface{}
 
-	if s, ok := err.(*rest.StandardHttpErrorResponse); ok {
+	if s, ok := err.(*utils.StandardHttpErrorResponse); ok {
 		code = s.Code
 		message = s.Message
 	} else {

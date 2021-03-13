@@ -2,6 +2,7 @@ package database
 
 import (
 	"discount-service/transport"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type DBContext struct {
@@ -9,9 +10,9 @@ type DBContext struct {
 }
 
 func (ac *DBContext) RegisterDatabases() {
-	mongoClient, err := ac.MongoConnect()
+	mysqlConnection, err := ac.MysqlConnect()
 	if err != nil {
 		ac.Logger.Fatal("error on connecting to mongo %v", err)
 	}
-	ac.MongoDb = mongoClient
+	ac.MysqlDb = mysqlConnection
 }

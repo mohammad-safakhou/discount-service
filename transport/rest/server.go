@@ -13,7 +13,7 @@ import (
 func StartRestServer(l *zap.SugaredLogger) {
 	ac := transport.ApplicationContext{
 		VConfig: nil,
-		MongoDb:  nil,
+		MysqlDb:  nil,
 		Logger:  l,
 	}
 	vc, err := config.ViperConfig()

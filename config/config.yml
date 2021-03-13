@@ -1,0 +1,13 @@
+database:
+  psql:
+    type: psql
+    host: localhost
+    port: 5432
+    user: postgres
+    password: root
+    name: postgres
+    sslmode: disable
+  mongo:
+    uri: mongodb://localhost:27017
+server:
+  port: 9000

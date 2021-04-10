@@ -13,3 +13,7 @@ database:
     uri: root:root@tcp(localhost:3306)/discount_service?parseTime=true
 server:
   port: 9000
+env:
+  serice_name: discount-service
+  ApplicationServiceURL: paygear.ir
+  HttpRequestAuthToken: jwt

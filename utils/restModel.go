@@ -11,3 +11,7 @@ type StandardHttpErrorResponse struct {
 	Message string `json:"message"`
 	Code    int    `json:"code"`
 }
+
+func (h StandardHttpErrorResponse) Error() string {
+	return h.Message
+}

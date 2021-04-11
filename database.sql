@@ -2,6 +2,8 @@ create table if not exists discount_rule
 (
     id INT NOT NULL AUTO_INCREMENT,
     user_id VARCHAR(36) NOT NULL,
+    is_percentage tinyint(1) NOT NULL ,
+    is_club_lists tinyint(1) NOT NULL ,
     primary key (id)
 );
 

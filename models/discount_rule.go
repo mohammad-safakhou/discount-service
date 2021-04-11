@@ -23,29 +23,48 @@ import (
 
 // DiscountRule is an object representing the database table.
 type DiscountRule struct {
-	ID     int    `boil:"id" json:"id" toml:"id" yaml:"id"`
-	UserID string `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
+	ID           int    `boil:"id" json:"id" toml:"id" yaml:"id"`
+	UserID       string `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
+	IsPercentage bool   `boil:"is_percentage" json:"is_percentage" toml:"is_percentage" yaml:"is_percentage"`
+	IsClubLists  bool   `boil:"is_club_lists" json:"is_club_lists" toml:"is_club_lists" yaml:"is_club_lists"`
 
 	R *discountRuleR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L discountRuleL  `boil:"-" json:"-" toml:"-" yaml:"-"`
 }
 
 var DiscountRuleColumns = struct {
-	ID     string
-	UserID string
+	ID           string
+	UserID       string
+	IsPercentage string
+	IsClubLists  string
 }{
-	ID:     "id",
-	UserID: "user_id",
+	ID:           "id",
+	UserID:       "user_id",
+	IsPercentage: "is_percentage",
+	IsClubLists:  "is_club_lists",
 }
 
 // Generated where
 
+type whereHelperbool struct{ field string }
+
+func (w whereHelperbool) EQ(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.EQ, x) }
+func (w whereHelperbool) NEQ(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.NEQ, x) }
+func (w whereHelperbool) LT(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.LT, x) }
+func (w whereHelperbool) LTE(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.LTE, x) }
+func (w whereHelperbool) GT(x bool) qm.QueryMod  { return qmhelper.Where(w.field, qmhelper.GT, x) }
+func (w whereHelperbool) GTE(x bool) qm.QueryMod { return qmhelper.Where(w.field, qmhelper.GTE, x) }
+
 var DiscountRuleWhere = struct {
-	ID     whereHelperint
-	UserID whereHelperstring
+	ID           whereHelperint
+	UserID       whereHelperstring
+	IsPercentage whereHelperbool
+	IsClubLists  whereHelperbool
 }{
-	ID:     whereHelperint{field: "`discount_rule`.`id`"},
-	UserID: whereHelperstring{field: "`discount_rule`.`user_id`"},
+	ID:           whereHelperint{field: "`discount_rule`.`id`"},
+	UserID:       whereHelperstring{field: "`discount_rule`.`user_id`"},
+	IsPercentage: whereHelperbool{field: "`discount_rule`.`is_percentage`"},
+	IsClubLists:  whereHelperbool{field: "`discount_rule`.`is_club_lists`"},
 }
 
 // DiscountRuleRels is where relationship names are stored.
@@ -69,8 +88,8 @@ func (*discountRuleR) NewStruct() *discountRuleR {
 type discountRuleL struct{}
 
 var (
-	discountRuleAllColumns            = []string{"id", "user_id"}
-	discountRuleColumnsWithoutDefault = []string{"user_id"}
+	discountRuleAllColumns            = []string{"id", "user_id", "is_percentage", "is_club_lists"}
+	discountRuleColumnsWithoutDefault = []string{"user_id", "is_percentage", "is_club_lists"}
 	discountRuleColumnsWithDefault    = []string{"id"}
 	discountRulePrimaryKeyColumns     = []string{"id"}
 )

@@ -3,20 +3,11 @@ package core
 import (
 	"context"
 	"discount-service/models"
-	"discount-service/transport"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
 )
 
-type DiscountFunctionalities interface {
-	CreateDiscountRule(ctx context.Context, discountRule *DiscountRuleModel) error
-	GetDiscountRule(ctx context.Context, accountId string) (DiscountRuleModel, error)
-	ValidateDiscountCreationRules(ctx context.Context, input DiscountRuleModel) (bool, error)
-}
 
-type DiscountCoreContext struct {
-	*transport.ApplicationContext
-}
 func (dc *DiscountCoreContext) ValidateDiscountCreationRules(ctx context.Context, input DiscountRuleModel) (bool, error) {
 	return true, nil
 }

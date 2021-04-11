@@ -1,2 +1,4 @@
 # discount service
 
+#Parameters
+TotalNumberOfTransactions

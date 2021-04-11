@@ -896,7 +896,7 @@ func testDiscountRulesSelect(t *testing.T) {
 }
 
 var (
-	discountRuleDBTypes = map[string]string{`ID`: `int`, `UserID`: `varchar`}
+	discountRuleDBTypes = map[string]string{`ID`: `int`, `UserID`: `varchar`, `IsPercentage`: `tinyint`, `IsClubLists`: `tinyint`}
 	_                   = bytes.MinRead
 )
 

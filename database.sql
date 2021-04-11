@@ -1,26 +1,26 @@
-create table if not exists discount
+create table if not exists discount_rule
 (
-    id int primary key,
-    user_id VARCHAR(36) NOT NULL
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id VARCHAR(36) NOT NULL,
+    primary key (id)
 );
 
 create table if not exists discount_attributes
-    (
-        id int primary key,
-        discount_id int ,
-        name VARCHAR(300) NOT NULL,
-        foreign key (discount_id) references discount (id)
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    discount_rule_id int ,
+    name VARCHAR(300) NOT NULL,
+    foreign key (discount_rule_id) references discount_rule (id),
+    primary key (id)
 );
 
 create table if not exists discount_meta_attributes
-    (
-        id int primary key,
-        discount_attributes_id int,
-        name VARCHAR(300) NOT NULL ,
-        value VARCHAR(300) NOT NULL ,
-        foreign key (discount_attributes_id) references discount_attributes (id)
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    discount_attributes_id int,
+    name VARCHAR(300) NOT NULL ,
+    value VARCHAR(300) NOT NULL ,
+    point int NOT NULL,
+    foreign key (discount_attributes_id) references discount_attributes (id),
+    primary key (id)
 );
-
-create database discount_service;
-use discount_service;
-drop database discount_service;

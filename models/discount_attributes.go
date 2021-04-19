@@ -24,9 +24,10 @@ import (
 
 // DiscountAttribute is an object representing the database table.
 type DiscountAttribute struct {
-	ID             int      `boil:"id" json:"id" toml:"id" yaml:"id"`
-	DiscountRuleID null.Int `boil:"discount_rule_id" json:"discount_rule_id,omitempty" toml:"discount_rule_id" yaml:"discount_rule_id,omitempty"`
-	Name           string   `boil:"name" json:"name" toml:"name" yaml:"name"`
+	ID             int         `boil:"id" json:"id" toml:"id" yaml:"id"`
+	Op             null.String `boil:"op" json:"op,omitempty" toml:"op" yaml:"op,omitempty"`
+	DiscountRuleID null.Int    `boil:"discount_rule_id" json:"discount_rule_id,omitempty" toml:"discount_rule_id" yaml:"discount_rule_id,omitempty"`
+	Name           string      `boil:"name" json:"name" toml:"name" yaml:"name"`
 
 	R *discountAttributeR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L discountAttributeL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -34,10 +35,12 @@ type DiscountAttribute struct {
 
 var DiscountAttributeColumns = struct {
 	ID             string
+	Op             string
 	DiscountRuleID string
 	Name           string
 }{
 	ID:             "id",
+	Op:             "op",
 	DiscountRuleID: "discount_rule_id",
 	Name:           "name",
 }
@@ -65,6 +68,29 @@ func (w whereHelperint) NIN(slice []int) qm.QueryMod {
 		values = append(values, value)
 	}
 	return qm.WhereNotIn(fmt.Sprintf("%s NOT IN ?", w.field), values...)
+}
+
+type whereHelpernull_String struct{ field string }
+
+func (w whereHelpernull_String) EQ(x null.String) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, false, x)
+}
+func (w whereHelpernull_String) NEQ(x null.String) qm.QueryMod {
+	return qmhelper.WhereNullEQ(w.field, true, x)
+}
+func (w whereHelpernull_String) IsNull() qm.QueryMod    { return qmhelper.WhereIsNull(w.field) }
+func (w whereHelpernull_String) IsNotNull() qm.QueryMod { return qmhelper.WhereIsNotNull(w.field) }
+func (w whereHelpernull_String) LT(x null.String) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LT, x)
+}
+func (w whereHelpernull_String) LTE(x null.String) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.LTE, x)
+}
+func (w whereHelpernull_String) GT(x null.String) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GT, x)
+}
+func (w whereHelpernull_String) GTE(x null.String) qm.QueryMod {
+	return qmhelper.Where(w.field, qmhelper.GTE, x)
 }
 
 type whereHelpernull_Int struct{ field string }
@@ -115,10 +141,12 @@ func (w whereHelperstring) NIN(slice []string) qm.QueryMod {
 
 var DiscountAttributeWhere = struct {
 	ID             whereHelperint
+	Op             whereHelpernull_String
 	DiscountRuleID whereHelpernull_Int
 	Name           whereHelperstring
 }{
 	ID:             whereHelperint{field: "`discount_attributes`.`id`"},
+	Op:             whereHelpernull_String{field: "`discount_attributes`.`op`"},
 	DiscountRuleID: whereHelpernull_Int{field: "`discount_attributes`.`discount_rule_id`"},
 	Name:           whereHelperstring{field: "`discount_attributes`.`name`"},
 }
@@ -147,8 +175,8 @@ func (*discountAttributeR) NewStruct() *discountAttributeR {
 type discountAttributeL struct{}
 
 var (
-	discountAttributeAllColumns            = []string{"id", "discount_rule_id", "name"}
-	discountAttributeColumnsWithoutDefault = []string{"discount_rule_id", "name"}
+	discountAttributeAllColumns            = []string{"id", "op", "discount_rule_id", "name"}
+	discountAttributeColumnsWithoutDefault = []string{"op", "discount_rule_id", "name"}
 	discountAttributeColumnsWithDefault    = []string{"id"}
 	discountAttributePrimaryKeyColumns     = []string{"id"}
 )

@@ -1056,7 +1056,7 @@ func testDiscountAttributesSelect(t *testing.T) {
 }
 
 var (
-	discountAttributeDBTypes = map[string]string{`ID`: `int`, `DiscountRuleID`: `int`, `Name`: `varchar`}
+	discountAttributeDBTypes = map[string]string{`ID`: `int`, `Op`: `varchar`, `DiscountRuleID`: `int`, `Name`: `varchar`}
 	_                        = bytes.MinRead
 )
 

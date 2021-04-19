@@ -50,3 +50,12 @@ func makeCacheKey(cols boil.Columns, nzDefaults []string) string {
 	strmangle.PutBuffer(buf)
 	return str
 }
+
+// Enum values for discount_rule.rule_type
+const (
+	DiscountRuleRuleTypeMax    = "max"
+	DiscountRuleRuleTypeGroup  = "group"
+	DiscountRuleRuleTypeSorted = "sorted"
+	DiscountRuleRuleTypeOr     = "or"
+	DiscountRuleRuleTypeAnd    = "and"
+)

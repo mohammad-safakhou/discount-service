@@ -171,6 +171,7 @@ func (dc *DiscountCoreContext) CalculateDiscount(ctx context.Context, accountId 
 				}
 			}
 		case "GroupList":
+
 		case "Points":
 
 		default:

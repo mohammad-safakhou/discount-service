@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/friendsofgo/errors"
+	"github.com/volatiletech/null/v8"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 	"github.com/volatiletech/sqlboiler/v4/queries"
 	"github.com/volatiletech/sqlboiler/v4/queries/qm"
@@ -23,10 +24,11 @@ import (
 
 // DiscountRule is an object representing the database table.
 type DiscountRule struct {
-	ID           int    `boil:"id" json:"id" toml:"id" yaml:"id"`
-	UserID       string `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
-	IsPercentage bool   `boil:"is_percentage" json:"is_percentage" toml:"is_percentage" yaml:"is_percentage"`
-	IsClubLists  bool   `boil:"is_club_lists" json:"is_club_lists" toml:"is_club_lists" yaml:"is_club_lists"`
+	ID           int         `boil:"id" json:"id" toml:"id" yaml:"id"`
+	RuleType     null.String `boil:"rule_type" json:"rule_type,omitempty" toml:"rule_type" yaml:"rule_type,omitempty"`
+	UserID       string      `boil:"user_id" json:"user_id" toml:"user_id" yaml:"user_id"`
+	IsPercentage bool        `boil:"is_percentage" json:"is_percentage" toml:"is_percentage" yaml:"is_percentage"`
+	IsClubLists  bool        `boil:"is_club_lists" json:"is_club_lists" toml:"is_club_lists" yaml:"is_club_lists"`
 
 	R *discountRuleR `boil:"-" json:"-" toml:"-" yaml:"-"`
 	L discountRuleL  `boil:"-" json:"-" toml:"-" yaml:"-"`
@@ -34,11 +36,13 @@ type DiscountRule struct {
 
 var DiscountRuleColumns = struct {
 	ID           string
+	RuleType     string
 	UserID       string
 	IsPercentage string
 	IsClubLists  string
 }{
 	ID:           "id",
+	RuleType:     "rule_type",
 	UserID:       "user_id",
 	IsPercentage: "is_percentage",
 	IsClubLists:  "is_club_lists",
@@ -57,11 +61,13 @@ func (w whereHelperbool) GTE(x bool) qm.QueryMod { return qmhelper.Where(w.field
 
 var DiscountRuleWhere = struct {
 	ID           whereHelperint
+	RuleType     whereHelpernull_String
 	UserID       whereHelperstring
 	IsPercentage whereHelperbool
 	IsClubLists  whereHelperbool
 }{
 	ID:           whereHelperint{field: "`discount_rule`.`id`"},
+	RuleType:     whereHelpernull_String{field: "`discount_rule`.`rule_type`"},
 	UserID:       whereHelperstring{field: "`discount_rule`.`user_id`"},
 	IsPercentage: whereHelperbool{field: "`discount_rule`.`is_percentage`"},
 	IsClubLists:  whereHelperbool{field: "`discount_rule`.`is_club_lists`"},
@@ -88,8 +94,8 @@ func (*discountRuleR) NewStruct() *discountRuleR {
 type discountRuleL struct{}
 
 var (
-	discountRuleAllColumns            = []string{"id", "user_id", "is_percentage", "is_club_lists"}
-	discountRuleColumnsWithoutDefault = []string{"user_id", "is_percentage", "is_club_lists"}
+	discountRuleAllColumns            = []string{"id", "rule_type", "user_id", "is_percentage", "is_club_lists"}
+	discountRuleColumnsWithoutDefault = []string{"rule_type", "user_id", "is_percentage", "is_club_lists"}
 	discountRuleColumnsWithDefault    = []string{"id"}
 	discountRulePrimaryKeyColumns     = []string{"id"}
 )

@@ -35,3 +35,13 @@ create table if not exists discount_meta_attributes
     foreign key (discount_attributes_id) references discount_attributes (id),
     primary key (id)
 );
+
+create table if not exists point_map
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    discount_rule_id int ,
+    name VARCHAR(100) NOT NULL ,
+    value VARCHAR(100) NOT NULL ,
+    foreign key (discount_rule_id) references discount_rule (id),
+    primary key (id)
+);
